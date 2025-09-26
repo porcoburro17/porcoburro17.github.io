@@ -14,8 +14,7 @@
     .muted{font-size:12px;color:#7b8fa0;margin-top:8px}
   </style>
 
-  <!-- COLE AQUI O PIXEL DO META (opcional) OU TAG MANAGER -->
-  <!-- se tiver, cole o script oficial do pixel aqui -->
+  <!-- COLE AQUI O PIXEL DO META (opcional) -->
 </head>
 <body>
   <div class="card" role="main" aria-labelledby="titulo">
@@ -29,13 +28,12 @@
   </div>
 
   <script>
-    // Configurações: substitua se necessário
-    var BOT_USERNAME = "mayaraguedes_bot"; // já ajustado
-    var WEB_TG_LINK = "https://t.me/" + BOT_USERNAME + "?start=utm_tiktok_bio";
-    var APP_TG_LINK = "tg://resolve?domain=" + BOT_USERNAME + "&start=utm_tiktok_bio";
+    // Configuração
+    var BOT_USERNAME = "mayaraguedes_bot"; 
+    var WEB_TG_LINK = "https://t.me/" + BOT_USERNAME;
+    var APP_TG_LINK = "tg://resolve?domain=" + BOT_USERNAME;
 
     function trackAndRedirect() {
-      // Se tiver pixel do FB, chama um evento aqui, por exemplo:
       try {
         if (typeof fbq === 'function') {
           fbq('track', 'ViewContent', {content_name: 'prelanding_click'});
@@ -46,14 +44,11 @@
     function openTelegram(){
       trackAndRedirect();
 
-      // Tentar abrir app via deep link; se não abrir, fallback pro link web.
-      // Nos navegadores mobile modernos, o deep link tentará abrir o app.
-      // Faz um redirect primeiro pro deep link e depois, se nada acontecer, pro web link.
       var now = Date.now();
-      // tenta abrir deep link
+      // tenta abrir o app
       window.location = APP_TG_LINK;
 
-      // se em 800ms não saiu do navegador (deep link não funcionou), redireciona pro web t.me
+      // se não abrir, fallback pro link web
       setTimeout(function(){
         if (Date.now() - now < 1200) {
           window.location = WEB_TG_LINK;
