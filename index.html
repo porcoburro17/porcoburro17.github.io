@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Preview VIP • Mayara Guedes</title>
+  <style>
+    body{font-family:system-ui,Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#071020;color:#fff}
+    .card{max-width:560px;padding:28px;border-radius:12px;background:linear-gradient(180deg,#071426,#0b2030);text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+    h1{margin:0 0 10px;font-size:22px}
+    p{color:#cbd5e1;margin:0 0 18px;line-height:1.4}
+    .btn{display:inline-block;background:#ff3b6b;color:#fff;padding:14px 22px;border-radius:10px;font-weight:700;text-decoration:none}
+    .small{font-size:13px;color:#9fb0c8;margin-top:12px}
+    .muted{font-size:12px;color:#7b8fa0;margin-top:8px}
+  </style>
+
+  <!-- COLE AQUI O PIXEL DO META (opcional) OU TAG MANAGER -->
+  <!-- se tiver, cole o script oficial do pixel aqui -->
+</head>
+<body>
+  <div class="card" role="main" aria-labelledby="titulo">
+    <h1 id="titulo">Prévia VIP — Conteúdo Exclusivo</h1>
+    <p>Acesse prévias e ofertas exclusivas. Somente maiores de 18 anos. Clique em “Sou maior” para prosseguir.</p>
+
+    <a id="enterBtn" class="btn" href="#" onclick="return openTelegram()">Sou MAIOR — Entrar</a>
+
+    <div class="small">Mais de <strong id="members">3.000</strong> membros — atualizações diárias.</div>
+    <div class="muted">Ao clicar você será redirecionado. Respeitamos sua privacidade.</div>
+  </div>
+
+  <script>
+    // Configurações: substitua se necessário
+    var BOT_USERNAME = "mayaraguedes_bot"; // já ajustado
+    var WEB_TG_LINK = "https://t.me/" + BOT_USERNAME + "?start=utm_tiktok_bio";
+    var APP_TG_LINK = "tg://resolve?domain=" + BOT_USERNAME + "&start=utm_tiktok_bio";
+
+    function trackAndRedirect() {
+      // Se tiver pixel do FB, chama um evento aqui, por exemplo:
+      try {
+        if (typeof fbq === 'function') {
+          fbq('track', 'ViewContent', {content_name: 'prelanding_click'});
+        }
+      } catch(e){ /* ignore */ }
+    }
+
+    function openTelegram(){
+      trackAndRedirect();
+
+      // Tentar abrir app via deep link; se não abrir, fallback pro link web.
+      // Nos navegadores mobile modernos, o deep link tentará abrir o app.
+      // Faz um redirect primeiro pro deep link e depois, se nada acontecer, pro web link.
+      var now = Date.now();
+      // tenta abrir deep link
+      window.location = APP_TG_LINK;
+
+      // se em 800ms não saiu do navegador (deep link não funcionou), redireciona pro web t.me
+      setTimeout(function(){
+        if (Date.now() - now < 1200) {
+          window.location = WEB_TG_LINK;
+        }
+      }, 800);
+
+      return false;
+    }
+  </script>
+</body>
+</html>
