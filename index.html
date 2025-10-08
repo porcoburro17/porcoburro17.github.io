@@ -29,9 +29,11 @@
 
   <script>
     // Configuração
-    var BOT_USERNAME = "mayguedess_bot"; 
-    var WEB_TG_LINK = "https://t.me/mayguedess_bot";
-    var APP_TG_LINK = "tg://resolve?domain=mayguedess_bot";
+var BOT_USERNAME = "mayguedess_bot";
+var START_PARAM = "1"; // ou "utm_tiktok", "utm_instagram", etc.
+var WEB_TG_LINK = "https://t.me/" + BOT_USERNAME + "?start=" + START_PARAM;
+var APP_TG_LINK = "tg://resolve?domain=" + BOT_USERNAME + "&start=" + START_PARAM;
+
 
     function trackAndRedirect() {
       try {
