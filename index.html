@@ -13,27 +13,23 @@
     .small{font-size:13px;color:#9fb0c8;margin-top:12px}
     .muted{font-size:12px;color:#7b8fa0;margin-top:8px}
   </style>
-
-  <!-- COLE AQUI O PIXEL DO META (opcional) -->
 </head>
 <body>
   <div class="card" role="main" aria-labelledby="titulo">
     <h1 id="titulo">Prévia VIP — Conteúdo Exclusivo</h1>
     <p>Acesse prévias e ofertas exclusivas. Somente maiores de 18 anos. Clique em “Sou maior” para prosseguir.</p>
 
-    <a id="enterBtn" class="btn" href="#" onclick="return openTelegram()">Sou MAIOR — Entrar</a>
+    <a id="enterBtn" class="btn" href="#" onclick="return openWebThenApp()">Sou MAIOR — Entrar</a>
 
     <div class="small">Mais de <strong id="members">3.000</strong> membros — atualizações diárias.</div>
     <div class="muted">Ao clicar você será redirecionado. Respeitamos sua privacidade.</div>
   </div>
 
   <script>
-    // Configuração
-var BOT_USERNAME = "mayguedess_bot";
-var START_PARAM = "1"; // ou "utm_tiktok", "utm_instagram", etc.
-var WEB_TG_LINK = "https://t.me/" + BOT_USERNAME + "?start=" + START_PARAM;
-var APP_TG_LINK = "tg://resolve?domain=" + BOT_USERNAME + "&start=" + START_PARAM;
-
+    // Coloque seu link web aqui
+    var WEB_LINK = "https://t.me/+FyFT1Ri-A5w1MmIx"; // <-- substitua por seu link do Telegram (ou outro destino)
+    // Coloque aqui o link do aplicativo, se quiser usar deep link (tg://...)
+    var APP_LINK = "tg://join?invite=FyFT1Ri-A5w1MmIx"; // <-- substitua pelo deep link equivalente
 
     function trackAndRedirect() {
       try {
@@ -43,19 +39,22 @@ var APP_TG_LINK = "tg://resolve?domain=" + BOT_USERNAME + "&start=" + START_PARA
       } catch(e){ /* ignore */ }
     }
 
-    function openTelegram(){
+    function openWebThenApp(){
       trackAndRedirect();
 
-      var now = Date.now();
-      // tenta abrir o app
-      window.location = APP_TG_LINK;
+      // Abre primeiro no navegador
+      try {
+        window.open(WEB_LINK, "_blank");
+      } catch(e){
+        window.location.href = WEB_LINK;
+      }
 
-      // se não abrir, fallback pro link web
+      // Depois tenta abrir no app
       setTimeout(function(){
-        if (Date.now() - now < 1200) {
-          window.location = WEB_TG_LINK;
+        if (APP_LINK.startsWith("tg://")) {
+          window.location.href = APP_LINK;
         }
-      }, 800);
+      }, 700);
 
       return false;
     }
