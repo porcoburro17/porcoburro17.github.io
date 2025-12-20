@@ -19,37 +19,39 @@
     <h1 id="titulo">Prévia VIP — Conteúdo Exclusivo</h1>
     <p>Acesse prévias e ofertas exclusivas. Somente maiores de 18 anos. Clique em “Sou maior” para prosseguir.</p>
 
-    <a id="enterBtn" class="btn" href="#" onclick="return redirectToBeacons()">Sou MAIOR — Entrar</a>
+    <a class="btn" href="#" onclick="return goTelegram()">Sou MAIOR — Entrar</a>
 
-    <div class="small">Mais de <strong id="members">3.000</strong> membros — atualizações diárias.</div>
-    <div class="muted">Ao clicar você será redirecionado. Respeitamos sua privacidade.</div>
+    <div class="small">Mais de <strong>3.000</strong> membros — atualizações diárias.</div>
+    <div class="muted">Redirecionamento automático em alguns segundos…</div>
   </div>
 
   <script>
-    // SEU LINK DO BEACONS - MUDOU SÓ AQUI, SEU ANIMAL!
-    var BEACONS_LINK = "https://beacons.ai/acesseeagora";
+    // LINK DO SEU GRUPO - NÃO CAGA NISSO
+    const TELEGRAM_INVITE = "https://t.me/+FnOLlABsB5liY2M5";
+    const TELEGRAM_DEEPLINK = "tg://join?invite=FnOLlABsB5liY2M5";
 
-    function trackAndRedirect() {
+    function goTelegram() {
       try {
         if (typeof fbq === 'function') {
-          fbq('track', 'ViewContent', {content_name: 'prelanding_click'});
+          fbq('track', 'ViewContent', {content_name: 'telegram_prelanding'});
         }
-      } catch(e){ /* ignore */ }
-    }
+      } catch(e){}
 
-    function redirectToBeacons(){
-      trackAndRedirect();
+      // tenta abrir app
+      window.location.href = TELEGRAM_DEEPLINK;
 
-      // Redireciona direto pro Beacons
-      window.location.href = BEACONS_LINK;
-      
+      // fallback web (se app não abrir)
+      setTimeout(function () {
+        window.location.href = TELEGRAM_INVITE;
+      }, 1200);
+
       return false;
     }
 
-    // Redirecionamento automático se quiser também
-    // setTimeout(function() {
-    //   window.location.href = BEACONS_LINK;
-    // }, 3000);
+    // REDIRECT AUTOMÁTICO EM 5 SEGUNDOS (SEM CLICAR)
+    setTimeout(function () {
+      goTelegram();
+    }, 5000);
   </script>
 </body>
 </html>
